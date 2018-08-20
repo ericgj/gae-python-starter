@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 
-SERVICE=${1:-default}
-PORT=${2:-8080}
-APPMODULE=${3:-main:app}
+ENV=${1:-production}
+SERVICE=${2:-default}
+PORT=${3:-8080}
+APPMODULE=${4:-main:app}
 VIRTUALENV=.env-${SERVICE}
-PROJECTID=$(bin/projectid development)
-KEYFILE=config/development/ca.key
-CERTFILE=config/development/ca.crt
+PROJECTID=$(bin/projectid "${ENV}")
+KEYFILE=config/development/ia.key
+CERTFILE=config/development/ia.crt
 CACERTS=config/development/ca.crt
 
 printf "Running dev-server for %s project %s service on %d ...\n" \

@@ -2,8 +2,16 @@
 
 KEYFILE=config/development/ca.key
 CRTFILE=config/development/ca.crt
+IAKEY=config/development/ia.key
+IACSR=config/development/ia.csr
+IACRT=config/development/ia.crt
+
+mkdir -p $(dirname KEYFILE)
 
 openssl genrsa -out "${KEYFILE}" 4096
-
 openssl req -new -x509 -days 1826 -key "${KEYFILE}" -out "${CRTFILE}" 
 
+openssl genrsa -out "${IAKEY}" 4096
+openssl req -new -key "${IAKEY}" -out "${IACSR}"
+
+openssl x509 -req -days 730 -in "${IACSR}" -CA "${CRTFILE}" -CAkey "${KEYFILE}" -set_serial 01 -out "${IACRT}" 

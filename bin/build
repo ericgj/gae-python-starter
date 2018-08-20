@@ -1,13 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
-ENV=${1:-production}
-SERVICE=${2:-default}
-
-rm -fr build
-mkdir -p build
-
-cp -r backend/${SERVICE}/* build/
-[[ -d backend/common ]] && cp -r backend/common build/
-
-. .env-dev/bin/activate && bin/build-templates ${ENV} --service="${SERVICE}" --out-dir="build" && deactivate
+bin/build-backend $@
 

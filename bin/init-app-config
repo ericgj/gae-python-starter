@@ -9,9 +9,7 @@ fi
 
 
 rm -fr config/development
-cp -r config/example config/development
-bin/projectid development "${PROJECTID}" > /dev/null
-bin/gen-config-secret > config/development/secret.yaml
+mkdir -p config/development
 
 rm -fr config/production
 mkdir -p config/production
