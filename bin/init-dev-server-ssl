@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+KEYFILE=config/development/ca.key
+CRTFILE=config/development/ca.crt
+
+openssl genrsa -out "${KEYFILE}" 4096
+
+openssl req -new -x509 -days 1826 -key "${KEYFILE}" -out "${CRTFILE}" 
+
