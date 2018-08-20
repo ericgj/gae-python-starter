@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+SERVICE=${1:-default}
+
+bin/freeze "${SERVICE}" > "backend/${SERVICE}/requirements.txt
+
+

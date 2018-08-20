@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+bin/init-app-config ${1}
+bin/init-app-template ${2}
+bin/init-app-virtualenv 

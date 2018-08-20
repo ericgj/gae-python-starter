@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+PROJECTID=${1}
+TEMPLATE=${2:-single}
+
+if [[ -z "$PROJECTID" ]]; then 
+  >&2 echo "You must specify a Google App Engine project ID"
+  exit 1
+fi
+
+if [[ -d backend ]] ; then
+  read -p "Are you sure you want to init? Your config and backend WILL BE RESET (y/N) " ans
+  case $ans in
+      [yY]* ) ;;
+      * ) exit;;
+  esac
+fi
+
+bin/init-virtualenv dev
+bin/install dev 
+bin/init-app ${PROJECTID} ${TEMPLATE}
+

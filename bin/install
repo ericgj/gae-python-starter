@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+VIRTUALENV=.env-${1:-dev}
+REQFILE=${2:-./requirements.txt}
+
+. "$VIRTUALENV/bin/activate" && \
+(pip freeze | grep -v "^-e" | xargs pip uninstall -y) && \
+pip install -r "$REQFILE" && \
+deactivate
+

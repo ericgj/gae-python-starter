@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+echo "protocol: https"
+echo "host: storage.googleapis.com"
+echo "port: 80"
+echo "path: ${1}/static"
+echo ""
+

@@ -1,0 +1,13 @@
+runtime: python37
+entrypoint: "gunicorn -b :$PORT main:app"
+
+handlers:
+  - url: /.*
+    secure: always
+    script: auto
+
+env_variables:
+  STATIC_BASE_URL: {{#static}}{{protocol}}://{{host}}{{#port}}:{{.}}{{/port}}{{#path}}/{{.}}{{/path}}{{/static}}
+  APP_ENVIRONMENT: {{environment}}
+  APP_SECRET: {{secret}}
+

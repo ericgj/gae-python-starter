@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+ENV=.env-${1:-dev}
+
+virtualenv "$ENV"
+

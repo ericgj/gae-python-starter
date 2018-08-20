@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+TMPL=${1:-single}
+
+rm -fr backend
+mkdir -p backend
+
+cp -r config/backend-templates/${TMPL}/* backend/
+

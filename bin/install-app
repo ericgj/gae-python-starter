@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+SERVICE=${1:-default}
+REQFILEINIT="backend/${SERVICE}/requirements-.txt"
+REQFILE="backend/${SERVICE}/requirements.txt"
+
+if [[ -f "${REQFILE}" ]] ; then
+    bin/install "${SERVICE}" "${REQFILE}"
+else
+    bin/install "${SERVICE}" "${REQFILEINIT}"  && bin/freeze "${SERVICE}" > "${REQFILE}"
+fi
+

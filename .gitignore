@@ -1,0 +1,9 @@
+/tmp
+/build
+/.env-*
+/config/*
+!/config/example
+!/config/backend-templates
+*.pyc
+*.pyo
+*.log

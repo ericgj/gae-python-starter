@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+VIRTUALENV=.env-${1:-dev}
+
+. "$VIRTUALENV/bin/activate" && pip freeze && deactivate
+
+

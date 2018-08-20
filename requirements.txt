@@ -1,0 +1,5 @@
+gunicorn~=19.9
+pystache
+ruamel.yaml~=0.15
+WebOb~=1.8
+WebTest~=2.0
