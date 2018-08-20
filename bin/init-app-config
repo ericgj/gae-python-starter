@@ -1,13 +1,21 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
+
+PROJECTID=${1}
+
+if [[ -z "$PROJECTID" ]]; then 
+  >&2 echo "You must specify a Google App Engine project ID"
+  exit 1
+fi
+
 
 rm -fr config/development
 cp -r config/example config/development
-. .env-dev/bin/activate && bin/projectid development ${1} > /dev/null && deactivate
+bin/projectid development "${PROJECTID}" > /dev/null
 bin/gen-config-secret > config/development/secret.yaml
 
 rm -fr config/production
 mkdir -p config/production
-. .env-dev/bin/activate && bin/projectid production ${1} > /dev/null && deactivate
-bin/gen-config-static ${1} > config/production/static.yaml
+bin/projectid production "${PROJECTID}" > /dev/null 
+bin/gen-config-static "${PROJECTID}" > config/production/static.yaml
 bin/gen-config-secret > config/production/secret.yaml
 

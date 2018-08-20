@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 ENV=${1:-production}
 SERVICE=${2:-default}

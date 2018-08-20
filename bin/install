@@ -4,7 +4,7 @@ VIRTUALENV=.env-${1:-dev}
 REQFILE=${2:-./requirements.txt}
 
 . "$VIRTUALENV/bin/activate" && \
-(pip freeze | grep -v "^-e" | xargs pip uninstall -y) && \
+((pip freeze | grep -v "^-e" | xargs pip uninstall -y) || exit 0) && \
 pip install -r "$REQFILE" && \
 deactivate
 

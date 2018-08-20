@@ -1,9 +1,15 @@
 #!/usr/bin/env bash
 
 ENVIRON=${1:-production}
-SERVICE=${2:-default}
-CONFIGFILE=${3:-app.yaml}
+CONFIGFILE=${2}
 PROJECTID=$(bin/projectid "${ENVIRON}")
 
-gcloud app deploy --project=${PROJECTID}" "build/${SERVICE}/${CONFIGFILE}"
+if [[ -z "${CONFIGFILE}" ]] ; then
+    fs=("build/*.yaml")
+else
+    fs=("build/${CONFIGFILE}")
+fi
 
+if [[ ${#fs[@]} -gt 0 ]] ; then
+    gcloud app deploy --project="${PROJECTID}" "${fs[@]}"
+fi
