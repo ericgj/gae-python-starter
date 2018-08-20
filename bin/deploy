@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+ENVIRON=${1:-production}
+SERVICE=${2:-default}
+CONFIGFILE=${3:-app.yaml}
+PROJECTID=$(bin/projectid "${ENVIRON}")
+
+gcloud app deploy --project=${PROJECTID}" "build/${SERVICE}/${CONFIGFILE}"
+

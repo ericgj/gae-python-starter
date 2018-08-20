@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+ENVIRON=${1:-production}
+PROJECTID=$(bin/projectid "${ENVIRON}")
+
+gsutil -m rsync -r static gs://$(PROJECTID)/static
+
