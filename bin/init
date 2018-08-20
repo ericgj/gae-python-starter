@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 PROJECTID=${1}
-TEMPLATE=${2:-single}
+TEMPLATE=${2}
 
 if [[ -z "$PROJECTID" ]]; then 
   >&2 echo "You must specify a Google App Engine project ID"

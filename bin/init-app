@@ -1,5 +1,14 @@
 #!/usr/bin/env sh
 
-bin/init-app-config ${1}
-bin/init-app-template ${2}
+PROJECTID=${1}
+TEMPLATE=${2:-single}
+
+if [[ -z "$PROJECTID" ]]; then 
+  >&2 echo "You must specify a Google App Engine project ID"
+  exit 1
+fi
+
+
+bin/init-app-config ${PROJECTID}
+bin/init-app-template ${TEMPLATE}
 bin/init-app-virtualenv 
