@@ -8,5 +8,5 @@ mkdir -p backend
 if [[ -d "${TMPL}" ]] ; then
     cp -r "${TMPL}" backend/default
 else
-    cp -r "config/backend-templates/${TMPL}/*" backend/
+    cp -r config/backend-templates/${TMPL}/* backend/
 fi
