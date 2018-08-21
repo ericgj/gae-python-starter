@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+ENV=${1:-production}
+SERVICE=${2:-default}
+
+# Define your frontend build process here
+# Generally, it should output javascript to static/ or static/scripts/ etc.
+#
