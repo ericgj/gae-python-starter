@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# Note: these are pre-build tests
+
+bin/test-backend $@

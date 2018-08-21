@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+SERVICE=${1:-default}
+VIRTUALENV=.env-${SERVICE}
+
+# Note: assumes either test.py or test/__main__.py exists in the service dir
+# to import the tests to be run
+
+. ${VIRTUALENV}/bin/activate && \
+PYTHONPATH="backend/${SERVICE}:backend" python -m unittest test && \
+deactivate
+
