@@ -2,6 +2,6 @@
 
 VIRTUALENV=.env-${1:-dev}
 
-. "$VIRTUALENV/bin/activate" && pip freeze && deactivate
+. $VIRTUALENV/bin/activate && pip freeze && deactivate
 
 

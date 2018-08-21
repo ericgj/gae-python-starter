@@ -7,6 +7,6 @@ REQFILE="backend/${SERVICE}/requirements.txt"
 if [[ -f "${REQFILE}" ]] ; then
     bin/install "${SERVICE}" "${REQFILE}"
 else
-    bin/install "${SERVICE}" "${REQFILEINIT}"  && bin/freeze "${SERVICE}" > "${REQFILE}"
+    bin/install "${SERVICE}" "${REQFILEINIT}" "initial"  && bin/freeze "${SERVICE}" > "${REQFILE}"
 fi
 
