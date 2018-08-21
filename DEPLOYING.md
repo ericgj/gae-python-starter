@@ -65,3 +65,58 @@ ENV=staging SERVICE=service1 make deploy
 
 
 ```
+
+
+## File structure
+
+```
+
+.env-default
+.env-dev
+bin/
+    init
+    install
+    freeze
+    test
+    build
+    deploy
+    dev-server
+requirements.txt
+config/
+    backend-templates
+        single/
+            app.yaml
+            requirements-.txt
+        multi/
+            common/
+            default/
+                app.yaml
+                dispatch.yaml
+                requirements-.txt
+    production/
+    development/
+backend/
+    common/                     # common source code for all services
+        model/
+    default/                    # note the naming convention under services are up to you
+        app.yaml                    # template for app.yaml
+        dispatch.yaml               # template for dispatch.yaml
+        v2.default.app.yaml         # template for v2 of app
+        main.py
+        v2.py
+    service1/
+        service1.app.yaml           # template for service1 app.yaml
+        main.py
+
+build/                          # a service at a time
+    app.yaml
+    v2.default.app.yaml
+    dispatch.yaml
+    main.py
+    v2.py
+    common/
+        model/
+
+
+```
+
