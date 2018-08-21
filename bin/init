@@ -17,6 +17,6 @@ if [[ -d backend ]] ; then
 fi
 
 bin/init-virtualenv dev
-bin/install dev 
+bin/install dev ./requirements.txt "initial"
 bin/init-app ${PROJECTID} ${TEMPLATE}
 
