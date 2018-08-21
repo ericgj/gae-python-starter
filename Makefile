@@ -4,6 +4,7 @@ SERVICE ?= default
 
 deploy: test build
 	bin/deploy $(ENV) $(SERVICE)
+    bin/deploy-static 
 
 test:
 	bin/test $(SERVICE)
