@@ -5,5 +5,8 @@ TMPL=${1:-single}
 rm -fr backend
 mkdir -p backend
 
-cp -r config/backend-templates/${TMPL}/* backend/
-
+if [[ -d "${TMPL}" ]] ; then
+    cp -r "${TMPL}/*" backend/
+else
+    cp -r "config/backend-templates/${TMPL}/*" backend/
+fi
