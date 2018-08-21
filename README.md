@@ -43,11 +43,18 @@ bin/build
 bin/build staging service1
 
 
-# Run tests on default service
+# Run tests on build, default service
 bin/test
 
-# Run (pre-build) tests on non-default service
+# Run tests on build, non-default service
 bin/test service1
+
+
+# Build and run tests on default service
+make test
+
+# Build and run tests on non-default service
+SERVICE=service1 make test
 
 
 # Test, build, and deploy to production default service, and static files

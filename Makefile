@@ -2,11 +2,11 @@
 ENV ?= production
 SERVICE ?= default
 
-deploy: test build
+deploy: test
 	bin/deploy $(ENV) $(SERVICE)
-    bin/deploy-static 
+	bin/deploy-static 
 
-test:
+test: build
 	bin/test $(SERVICE)
 
 build:

@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+SERVICE=${1:-default}
+
+# Define your frontend test process here
+#
+
