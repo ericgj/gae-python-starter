@@ -1,11 +1,16 @@
 #!/usr/bin/env bash
 
 SERVICE=${1:-default}
+UPDFLAG=${2}
 REQFILEINIT="backend/${SERVICE}/requirements-.txt"
 REQFILE="backend/${SERVICE}/requirements.txt"
 
 if [[ -f "${REQFILE}" ]] ; then
-    bin/install "${SERVICE}" "${REQFILE}"
+    if [[ "${UPDFLAG}" -eq "update" ]]; then
+        bin/install "${SERVICE}" "${REQFILEINIT}" && bin/freeze "${SERVICE}" > "${REQFILE}"
+    else
+        bin/install "${SERVICE}" "${REQFILE}"
+    fi
 else
     bin/install "${SERVICE}" "${REQFILEINIT}" "initial"  && bin/freeze "${SERVICE}" > "${REQFILE}"
 fi

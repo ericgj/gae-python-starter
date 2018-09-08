@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
 
 SERVICE=${1:-default}
+TESTS=${2:-test_*}
 VIRTUALENV=.env-${SERVICE}
 
 . ${VIRTUALENV}/bin/activate && \
+source <(bin/gen-config-environ) && \
+export GOOGLE_CLOUD_PROJECT=$(bin/projectid development) && \
 cd build && \
-PYTHONPATH=. python -m unittest test/test_* && \
+PYTHONPATH=. python -m unittest test/$TESTS --buffer && \
 cd - && \
 deactivate
 

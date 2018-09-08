@@ -7,6 +7,7 @@ rm -fr build
 mkdir -p build
 
 cp -r backend/${SERVICE}/* build/
+cp -r config/${ENV} build/config
 [[ -d backend/common ]] && cp -r backend/common build/
 
 . .env-dev/bin/activate && bin/build-backend-templates ${ENV} --service="${SERVICE}" --out-dir="build" && deactivate

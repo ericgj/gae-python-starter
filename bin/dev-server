@@ -1,25 +1,24 @@
 #!/usr/bin/env bash
 
-ENV=${1:-production}
-SERVICE=${2:-default}
-PORT=${3:-8080}
-APPMODULE=${4:-main:app}
+SERVICE=${1:-default}
+PORT=${2:-8080}
+APPMODULE=${3:-main:app}
 VIRTUALENV=.env-${SERVICE}
-PROJECTID=$(bin/projectid "${ENV}")
-KEYFILE=config/development/ia.key
-CERTFILE=config/development/ia.crt
-CACERTS=config/development/ca.crt
+PROJECTID=$(bin/projectid development)
+KEYFILE=ia.key
+CERTFILE=ia.crt
+CACERTS=ca.crt
 
 printf "Running dev-server for %s project %s service on %d ...\n" \
     "${PROJECTID}" "${SERVICE}" "${PORT}"  
 
 . .env-dev/bin/activate && \
-bin/gen-dev-server.py build/app.yaml "backend/${SERVICE}" "${APPMODULE}" \
+bin/gen-dev-server.py build/app.yaml "build" "${APPMODULE}" \
     --project-id="${PROJECTID}" \
     --virtualenv="${VIRTUALENV}" \
     --port="${PORT}" \
-    --keyfile=../../"${KEYFILE}" \
-    --certfile=../../"${CERTFILE}" \
-    --ca-certs=../../"${CACERTS}" | bash  && \
+    --keyfile="config/${KEYFILE}" \
+    --certfile="config/${CERTFILE}" \
+    --ca-certs="config/${CACERTS}" | bash  && \
 deactivate
 

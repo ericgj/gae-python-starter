@@ -1,15 +1,27 @@
 
-ENV ?= production
 SERVICE ?= default
 
-deploy: test
-	bin/deploy $(ENV) $(SERVICE)
+deploy-prod: test build-prod
+	bin/deploy production $(SERVICE)
+	bin/deploy-static
+
+deploy: test build-staging
+	bin/deploy staging $(SERVICE)
 	bin/deploy-static 
 
-test: build
+test: build-dev
 	bin/test $(SERVICE)
 
-build:
-	bin/build $(ENV) $(SERVICE)
+dev-server: build-dev
+	bin/dev-server $(SERVICE)
 
-.PHONY: deploy test build
+build-prod:
+	bin/build production $(SERVICE)
+
+build-staging:
+	bin/build staging $(SERVICE)
+
+build-dev:
+	bin/build development $(SERVICE)
+
+.PHONY: deploy deploy-prod test dev-server build-prod build-staging build-dev
