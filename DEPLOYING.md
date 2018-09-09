@@ -6,16 +6,29 @@ Deployment rig and project template for Google App Engine 3.x apps
 
 ** Work in progress **
 
-## Basic usage
+## Requirements
+
+- python 3.5+
+- virtualenv
+- Google Cloud SDK
+
+
+## Installation
 
 ```sh
 
 # Clone the repo into a new project directory
-# You can also download and unzip if you don't want git history
+# You can also download and unzip if you don't want any git history
 #
-git clone git@github.com:ericgj/gae-python-starter.git my-new-project
+git clone --depth=1 git@github.com:ericgj/gae-python-starter.git my-new-project
 cd my-new-project
 git checkout -b master
+
+```
+
+## Basic usage (local)
+
+```sh
 
 # Initialize backend with project ID and either
 #  "single" for single service (the default)
@@ -60,14 +73,46 @@ bin/init-static-config my-gae-project-id
 ```
 
 
+## Deployment via Cloud Build
+
+- Set up triggers for your production, staging, and test deployments (associated
+  with pushing to e.g. `master`, `rc`, and `test` branches).
+
+- Define substitution variables `_GAE_VERSION`, `_GAE_PROMOTE` for each 
+  environment as described in
+  [this article](https://medium.com/@douglasaugus.to/working-with-multiple-environments-in-google-cloud-build-c642ace9ee6).
+  (Note the traffic splitting I don't automatically do; it's easy to add if
+  you want it.)
+
+- The production and staging environments should use `cloudbuild.yaml`, and  
+  test should use `cloudbuild-test.yaml` (which will eventually run end-to-end
+  tests post-deployment).
+
+
+
+## Manual deployment
+
+```sh
+
+# Build and run local tests, then build and deploy to test
+make deploy
+
+# Build and run local tests, then build and deploy to staging
+make deploy-staging
+
+```
+
+
 ## File structure
 
 ```
 
 .env-default
 .env-dev
-bin/
+cloudbuild.yaml                 # deployment config 
+cloudbuild-test.yaml            # deployment config for test environment
 requirements.txt                # non-frozen build dependencies
+bin/
 config/
     backend-templates
         single/
