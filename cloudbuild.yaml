@@ -1,12 +1,25 @@
 steps:
 - name: 'gcr.io/cloud-builders/gsutil'
-  args: [ 'rsync', '-d', '-r', 'gs://$PROJECT_ID/config', './config' ]
-- name: 'gcr.io/cloud-builders/gsutil'
   args: [ 'rsync', '-d', '-r', './static', 'gs://$PROJECT_ID/static' ]
+  waitFor: ['-']
+
 - name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-f', 'Dockerfile', '-r', 'build-image', '.' ]
+  args: [ 'build', '-t', 'build-image', '.' ]
+  id: 'docker-build'
+  waitFor: ['-']
+
 - name: 'build-image'
-  args: [ 'bash', './bin/build $_GAE_VERSION' ] 
+  args: [ 'bash', './bin/build $_GAE_VERSION' ]
+  id: 'build'
+  waitFor: ['docker-build']
+
+- name: 'gcr.io/cloud-builders/gsutil'
+  args: [ 'rsync', '-d', '-r', 'gs://$PROJECT_ID/config', './build/config' ]
+  waitFor: ['build']
+
 - name: 'gcr.io/cloud-builders/gcloud'
   args: [ 'app', 'deploy', '--project', '$PROJECT_ID',
           '-q', '$_GAE_PROMOTE', '-v', '$_GAE_VERSION', './build/*.yaml' ]
+  waitFor: ['build']
+  timeout: 1200s
+

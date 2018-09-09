@@ -2,13 +2,14 @@
 
 ENV=${1:-production}
 SERVICE=${2:-default}
+OUTDIR=${3:-build}
 
-rm -fr build
-mkdir -p build
+rm -fr "${OUTDIR}"
+mkdir -p "${OUTDIR}"
 
-cp -r backend/${SERVICE}/* build/
-cp -r config/${ENV} build/config
-[[ -d backend/common ]] && cp -r backend/common build/
+cp -r backend/${SERVICE}/* ${OUTDIR}/
+cp -r config/${ENV} ${OUTDIR}/config
+[[ -d backend/common ]] && cp -r backend/common ${OUTDIR}/
 
-. .env-dev/bin/activate && bin/build-backend-templates ${ENV} --service="${SERVICE}" --out-dir="build" && deactivate
+. .env-dev/bin/activate && bin/build-backend-templates ${ENV} --service="${SERVICE}" --out-dir="${OUTDIR}" && deactivate
 
