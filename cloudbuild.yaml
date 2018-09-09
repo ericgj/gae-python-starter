@@ -1,0 +1,10 @@
+steps:
+- name: 'gcr.io/cloud-builders/gsutil'
+  args: [ 'rsync', '-r', '-d', 'gs://$PROJECT_ID/config', './config' ]
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', '-f', 'Dockerfile', '-r', 'build-image', '.' ]
+- name: 'build-image'
+  args: [ 'bash', './bin/build $_GAE_VERSION' ] 
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: [ 'app', 'deploy', '--project', '$PROJECT_ID',
+          '-q', '$_GAE_PROMOTE', '-v', '$_GAE_VERSION', './build/*.yaml' ]

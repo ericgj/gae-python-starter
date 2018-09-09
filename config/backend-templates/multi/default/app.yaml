@@ -8,6 +8,5 @@ handlers:
 
 env_variables:
   STATIC_BASE_URL: {{#static}}{{protocol}}://{{host}}{{#port}}:{{.}}{{/port}}{{#path}}/{{.}}{{/path}}{{/static}}
-  APP_ENVIRONMENT: {{environment}}
   APP_SECRET: {{secret}}
 

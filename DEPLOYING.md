@@ -36,20 +36,6 @@ bin/install-app
 bin/install-app service1
 
 
-# Build default service using production config
-bin/build
-
-# Build non-default service using alternate config
-bin/build staging service1
-
-
-# Run tests on build, default service
-bin/test
-
-# Run tests on build, non-default service
-bin/test service1
-
-
 # Build and run tests on default service
 make test
 
@@ -57,11 +43,18 @@ make test
 SERVICE=service1 make test
 
 
-# Test, build, and deploy to production default service, and static files
-make deploy
+# Initialize SSL files for dev server (run once)
+bin/init-dev-server
 
-# Test, build, and deploy to staging non-default service, and static files
-ENV=staging SERVICE=service1 make deploy
+# Build default service using development config and run dev server
+make dev-server
+
+
+# Initialize bucket for static files deploy (run once)
+bin/init-static my-gae-project-id
+
+# Initialize bucket for config files deploy (run once)
+bin/init-static-config my-gae-project-id
 
 
 ```
@@ -74,46 +67,37 @@ ENV=staging SERVICE=service1 make deploy
 .env-default
 .env-dev
 bin/
-    init
-    install
-    freeze
-    test
-    build
-    deploy
-    dev-server
-requirements.txt
+requirements.txt                # non-frozen build dependencies
 config/
     backend-templates
         single/
             app.yaml
-            requirements-.txt
         multi/
             common/
             default/
                 app.yaml
                 dispatch.yaml
-                requirements-.txt
     production/
     development/
 backend/
+    requirements-.txt           # non-frozen dependencies
+    requirements.txt            # frozen dependencies
     common/                     # common source code for all services
         model/
     default/                    # note the naming convention under services are up to you
         app.yaml                    # template for app.yaml
         dispatch.yaml               # template for dispatch.yaml
-        v2.default.app.yaml         # template for v2 of app
         main.py
-        v2.py
     service1/
-        service1.app.yaml           # template for service1 app.yaml
+        app.yaml                # template for service1 app.yaml
         main.py
 
 build/                          # a service at a time
+    requirements-.txt
+    requirements.txt
     app.yaml
-    v2.default.app.yaml
     dispatch.yaml
     main.py
-    v2.py
     common/
         model/
 

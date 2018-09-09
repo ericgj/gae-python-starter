@@ -10,10 +10,22 @@ fi
 
 rm -fr config/development
 mkdir -p config/development
+bin/projectid development "${PROJECTID}" > /dev/null 
+bin/gen-config-secret > config/development/secret.yaml
+bin/gen-config-static-local "8081" > config/development/static.yaml
+
+rm -fr config/test
+mkdir -p config/test
+bin/gen-config-secret > config/test/secret.yaml
+bin/gen-config-static "${PROJECTID}" > config/test/static.yaml
+
+rm -fr config/staging
+mkdir -p config/staging
+bin/gen-config-secret > config/staging/secret.yaml
+bin/gen-config-static "${PROJECTID}" > config/staging/static.yaml
 
 rm -fr config/production
 mkdir -p config/production
-bin/projectid production "${PROJECTID}" > /dev/null 
-bin/gen-config-static "${PROJECTID}" > config/production/static.yaml
 bin/gen-config-secret > config/production/secret.yaml
+bin/gen-config-static "${PROJECTID}" > config/production/static.yaml
 

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+PORT=${1-80}
+
+echo "protocol: http"
+echo "host: localhost"
+echo "port: ${PORT}"
+echo "path: "
+echo ""
+
+

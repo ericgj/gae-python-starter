@@ -7,9 +7,6 @@ if [[ -z "$PROJECTID" ]]; then
   exit 1
 fi
 
-echo "protocol: https"
-echo "host: storage.googleapis.com"
-echo "port: 80"
-echo "path: ${PROJECTID}/static"
-echo ""
+gsutil mb -p ${PROJECTID} gs://${PROJECTID}/static
+gsutil defacl set public-read gs://${PROJECTID}/static
 
