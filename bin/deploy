@@ -11,5 +11,5 @@ else
 fi
 
 if [[ ${#fs[@]} -gt 0 ]] ; then
-    gcloud app deploy --project="${PROJECTID}" "${fs[@]}"
+    gcloud app deploy --no-promote --project="${PROJECTID}" --version="${ENVIRON}" $fs
 fi

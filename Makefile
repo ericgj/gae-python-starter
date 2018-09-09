@@ -4,11 +4,11 @@ SERVICE ?= default
 deploy: deploy-test
 
 deploy-test: test build-test
-	bin/deploy test $(SERVICE)
+	bin/deploy test 
 	bin/deploy-static 
 
 deploy-staging: staging build-staging
-	bin/deploy staging $(SERVICE)
+	bin/deploy staging 
 	bin/deploy-static 
 
 
