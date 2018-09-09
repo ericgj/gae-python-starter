@@ -1,6 +1,8 @@
 steps:
 - name: 'gcr.io/cloud-builders/gsutil'
-  args: [ 'rsync', '-r', '-d', 'gs://$PROJECT_ID/config', './config' ]
+  args: [ 'rsync', '-d', '-r', 'gs://$PROJECT_ID/config', './config' ]
+- name: 'gcr.io/cloud-builders/gsutil'
+  args: [ 'rsync', '-d', '-r', './static', 'gs://$PROJECT_ID/static' ]
 - name: 'gcr.io/cloud-builders/docker'
   args: [ 'build', '-f', 'Dockerfile', '-r', 'build-image', '.' ]
 - name: 'build-image'
